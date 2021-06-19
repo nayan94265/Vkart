@@ -15,12 +15,17 @@ app.use(cors());
 
 app.use('/',Routes);
 
-const port=8000;
+const port = process.env.PORT || 8000;
 
 const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD;
 
 Connection(username,password);
+
+
+if(process.env.NODE_ENV !== 'production'){
+    app.use(express.static('client/build'));
+}
 app.listen(port,()=>console.log(`server is running on ${port}`));
 
 DefaultData();
